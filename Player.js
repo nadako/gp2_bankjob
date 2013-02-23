@@ -24,15 +24,15 @@ Player.prototype.prepareSprites = function()
 {
     this.animations =[];
     this.animations[this.GOTO_DEAL_STATE] = new Sprite({
-        "baseUrl"  : "res/girl/"
+        "baseUrl"  : "res/bankjob/"
         , "fps"    : 30
-        , "frames" : [ "girl_16.png" ]
+        , "frames" : [ "player.png" ]
     });
 
     this.animations[this.GETTING_AWAY_STATE] = new Sprite({
         "baseUrl"  : "res/girl/"
         , "fps"    : 30
-        , "frames" : [ "girl_16.png" ]
+        , "frames" : [ "player_gold.png" ]
     });
 }
 

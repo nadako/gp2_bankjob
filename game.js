@@ -18,7 +18,6 @@ Game.prototype.resetLevel = function (levelId) {
 Game.prototype.Load = function () {
 
     this.resetLevel(0);
-
 }
 
 Game.prototype.Calculate = function () {
