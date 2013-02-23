@@ -35,7 +35,7 @@ Sprite.prototype.initialize = function(config)
             if (waiting <=0)
                 that.valid = true;
         }
-        img.src = config.baseUrl + "/" +config.frames[frame];
+        img.src = config.baseUrl + "/" +config.frames[frame] + "?" + (new Date()).getTime();;
     }
 }
 
