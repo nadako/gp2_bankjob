@@ -46,7 +46,7 @@ TimeWidget.prototype.draw = function()
 {
     var carAnim = this.animations["car"][this.currentState];
     var barAnim = this.animations["bar"][this.currentState];
-    var progressX = this.position.x;// + this.currentTime/this.maxTime * (barAnim.currentFrame.width - carAnim.currentFrame.width);
+    var progressX = this.position.x + this.currentTime/this.maxTime * (barAnim.currentFrame.width - carAnim.currentFrame.width);
     var barY = this.position.y + 35;///(carAnim.currentFrame.height - barAnim.currentFrame.height)/2;
 
     this.animations["bar"][this.currentState].draw(this.position.x, barY);

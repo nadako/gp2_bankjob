@@ -29,7 +29,7 @@ var empty = {
 
 var levelDefs = [
     {
-         duration: 3000,
+         duration: 30000,
          bg: "bg.png",
          bankTile: "bank_cash_tile.png",
          houseTiles: [

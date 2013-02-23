@@ -13,7 +13,7 @@ Game = function () {
 Game.prototype.startLevel = function (levelId) {
 
     this.lastBulletTime = 0;
-    this.bulletSpawnDuration = 1500;
+    this.bulletSpawnDuration = 8000;
     this.levelId = levelId;
     this.currentLevel = new Level(levelDefs[levelId]);
     this.timeWidget = new TimeWidget(252, 50, this.currentLevel.def.duration);
@@ -54,15 +54,15 @@ Game.prototype.Calculate = function () {
 
     else if (this.bullet == null)
     {
-        if (this.currentLevel.time - this.lastBulletTime > this.bulletSpawnDuration && pos < this.currentLevel.numObstacles() )
+        if (this.currentLevel.time - this.lastBulletTime > this.bulletSpawnDuration && pos < this.currentLevel.numObstacles()-1 )
         {
-            this.bullet = new Bullet(canvas.width, 300, -0.5);
+            this.bullet = null;//new Bullet(canvas.width, 300, -0.5);
         }
     }
     else
     {
         this.bullet.update(tickperframe);
-        if (this.bullet.position.x <= Config.TILE_SIZE)
+        if (pos < 1 || this.bullet.position.x <= Config.TILE_SIZE)
             this.bullet = null;
     }
 }
