@@ -6,6 +6,19 @@ var Level = function(def)
     this.bg = new Image();
     this.bg.src = Config.BASE_URL + def.bg;
 
+    this.houseTiles = [];
+    for (var i = 0; i < def.houseTiles.length; i++)
+    {
+        var img = new Image();
+        img.src = Config.BASE_URL + def.houseTiles[i];
+        this.houseTiles.push(img);
+    }
+
+    this.houseCount = 0;
+
+    this.bankTile = new Image();
+    this.bankTile.src = Config.BASE_URL + def.bankTile;
+
     for (var i = 0; i < def.obstacles.length; i++)
     {
         this.obstacles.push(new Obstacle(def.obstacles[i]));
@@ -23,12 +36,28 @@ Level.prototype.draw = function()
 {
     ctx.drawImage(this.bg, 0, 0);
 
+    var x = this.def.tilecoord.x;
+
+    ctx.drawImage(this.getHouseTile(), x, this.def.tilecoord.y);
+    x += Config.TILE_SIZE;
+
     for (var i = 0; i < this.obstacles.length; i++)
     {
         var obstacle = this.obstacles[i];
-        obstacle.sprite.draw(this.def.tilecoord.x + i * Config.TILE_SIZE, this.def.tilecoord.y);
+        obstacle.sprite.draw(x, this.def.tilecoord.y);
+        x += Config.TILE_SIZE;
     }
+
+    ctx.drawImage(this.bankTile, x, this.def.tilecoord.y)
 }
+
+Level.prototype.getHouseTile = function()
+{
+    if (this.houseCount < this.houseTiles.length)
+        return this.houseTiles[this.houseCount];
+    else
+        return this.houseTiles[this.houseTiles.length - 1];
+};
 
 Level.prototype.isDeadly = function(index)
 {
@@ -45,6 +74,10 @@ Level.prototype.numObstacles = function()
     return this.obstacles.length;
 }
 
+Level.prototype.setHouseCount = function(count)
+{
+    this.houseCount = count;
+}
 
 var Obstacle = function(def)
 {
