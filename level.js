@@ -3,6 +3,8 @@ var Level = function(def)
     this.def = def;
     this.obstacles = [];
     this.time = 0;
+    this.bg = new Image();
+    this.bg.src = Config.BASE_URL + def.bg;
 
     for (var i = 0; i < def.obstacles.length; i++)
     {
@@ -19,10 +21,12 @@ Level.prototype.update = function(dt)
 
 Level.prototype.draw = function()
 {
+    ctx.drawImage(this.bg, 0, 0);
+
     for (var i = 0; i < this.obstacles.length; i++)
     {
         var obstacle = this.obstacles[i];
-        obstacle.sprite.draw(i * Config.TILE_SIZE, 0);
+        obstacle.sprite.draw(this.def.tilecoord.x + i * Config.TILE_SIZE, this.def.tilecoord.y);
     }
 }
 
