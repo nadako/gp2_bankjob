@@ -72,19 +72,29 @@ Game.prototype.Calculate = function () {
 Game.prototype.playerDeath = function()
 {
     this.deathSound.play();
-    changeState(new LoseState("killed in a trap"));
+    totalBagsOfGold -= this.currentLevel.houseCount;
+    changeState(new SimpleImageState("dead.png", new PlayState(game.levelId)));
 };
 
 Game.prototype.playerWin = function()
 {
     this.winSound.play();
-    changeState(new WinState(this.currentLevel.houseCount));
+
+    var lastLevel = game.levelId >= levelDefs.length - 1;
+    var nextState;
+    if (lastLevel)
+        nextState = new WinState("win_final.png", null, 50);
+    else
+        nextState = new WinState("win.png", new PlayState(game.levelId + 1));
+
+    changeState(nextState);
 };
 
 Game.prototype.playerArrest = function()
 {
     this.deathSound.play();
-    changeState(new LoseState("fuckers got you"));
+    totalBagsOfGold -= this.currentLevel.houseCount;
+    changeState(new SimpleImageState("busted.png", new PlayState(game.levelId)));
 };
 
 Game.prototype.checkPlayerAtHome = function()
@@ -96,6 +106,7 @@ Game.prototype.checkPlayerAtHome = function()
     {
         this.player.setCurrentState(this.player.GOTO_DEAL_STATE);
         this.currentLevel.houseCount++;
+        totalBagsOfGold++;
         this.putdownSound.play();
     }
 }
@@ -121,8 +132,9 @@ Game.prototype.Render = function () {
     if (this.bullet != null)
        this.bullet.draw();
 
-    ctx.fillStyle = "#FF00AA";
-    ctx.fillText("SCORE: " + this.currentLevel.houseCount, 200, 20);
+    ctx.fillStyle = "#000000";
+    ctx.font = "25px MainFont";
+    ctx.fillText("SCORE: " + this.currentLevel.houseCount + " (total " + totalBagsOfGold + ")", 250, 20);
 }
 
 

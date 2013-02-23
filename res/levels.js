@@ -38,33 +38,54 @@ var empty = {
     ]
 };
 
+var defaultHouseTiles = [
+    "tunnel_tile.png",
+    "home_gold1.png",
+    "home_gold2.png",
+    "home_gold3.png"
+];
 
 var levelDefs = [
     {
-         duration: 30000,
+         duration: 15000,
          bg: "bg.png",
          bankTile: "bank_cash_tile.png",
-         houseTiles: [
-             "tunnel_tile.png",
-             "home_gold1.png",
-             "home_gold2.png",
-             "home_gold3.png"
-         ],
+         houseTiles: defaultHouseTiles,
          tilecoord: {x: 0, y: 258},
-         obstacles: [ empty, lazor, flame, grinder, empty, grinder ]
+         obstacles: [ empty, empty, empty, empty, grinder, empty ]
     },
 
     {
-        duration: 3000,
+        duration: 30000,
         bg: "bg.png",
         bankTile: "bank_cash_tile.png",
-        houseTiles: [
-            "tunnel_tile.png",
-            "home_gold1.png",
-            "home_gold2.png",
-            "home_gold3.png"
-        ],
+        houseTiles: defaultHouseTiles,
         tilecoord: {x: 0, y: 258},
-        obstacles: [ empty, lazor, empty, grinder, empty, grinder ]
+        obstacles: [ empty, grinder, empty, empty, grinder, empty ]
+    },
+
+    {
+        duration: 30000,
+        bg: "bg.png",
+        bankTile: "bank_cash_tile.png",
+        houseTiles: defaultHouseTiles,
+        tilecoord: {x: 0, y: 258},
+        obstacles: [ empty, grinder, empty, lazor, empty, empty ]
+    },
+    {
+        duration: 30000,
+        bg: "bg.png",
+        bankTile: "bank_cash_tile.png",
+        houseTiles: defaultHouseTiles,
+        tilecoord: {x: 0, y: 258},
+        obstacles: [ empty, flame, empty, lazor, empty, grinder ]
+    },
+    {
+        duration: 35000,
+        bg: "bg.png",
+        bankTile: "bank_cash_tile.png",
+        houseTiles: defaultHouseTiles,
+        tilecoord: {x: 0, y: 258},
+        obstacles: [ grinder, empty, lazor, flame, empty, grinder ]
     }
 ]

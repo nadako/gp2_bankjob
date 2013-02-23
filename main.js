@@ -15,6 +15,8 @@ var tickperframe = 0;
 // number of seconds in current frame, choose what is best for your needs
 var secperframe = 0;
 
+totalBagsOfGold = 0;
+
 
 var currentState = null;
 
@@ -46,10 +48,12 @@ function GameTick(elapsed)
         currentState.draw();
     }
 
+/*
     // Draw FPS
 	ctx.fillStyle = "#FF00AA";    
-    ctx.font="15px Arial Black";
+    ctx.font="15px MainFont";
     ctx.fillText("FPS: "+ fps.str_fps,20,20);
+*/
 }
 
 
@@ -63,7 +67,7 @@ window.onload = function () {
     game = new Game();
     game.Load();
 
-    changeState(new MainMenuState());
+    changeState(new SimpleImageState("game_start.png", new SimpleImageState("tutorial.png", new PlayState(0))));
     GameLoopManager.run(GameTick);
 
     //canvas.onmousedown = function (e) {      game.onmousedown(e);    };
