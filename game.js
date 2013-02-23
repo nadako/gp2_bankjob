@@ -11,7 +11,7 @@ Game = function () {
 Game.prototype.resetLevel = function (levelId) {
 
     this.currenLevel = new Level(levelDefs[levelId]);
-    this.player.reset(0, 0, 5, 100);
+    this.player.reset(0, 0,  this.currenLevel.numObstacles()-1, 10);
 }
 
 
@@ -54,8 +54,7 @@ Game.prototype.onLeftPressed = function (e) {
 
 Game.prototype.onRightPressed = function (e) {
 
-    if (this.playerPosIndex < this.levelMap.length)
-        this.playerPosIndex ++;
+    this.player.tryMoveRight();
 }
 
 //---------------------------------------------

@@ -34,7 +34,7 @@ Player.prototype.tryMoveLeft = function()
 {
     if (this.positionIndex > 0)
     {
-        this.position.set(this.position.x - this.xOffset);
+        this.position.set(this.position.x - this.xOffset, this.position.y);
         this.positionIndex --;
     }
 }
@@ -43,7 +43,7 @@ Player.prototype.tryMoveRight = function()
 {
     if (this.positionIndex < this.maxPositionIndex)
     {
-        this.position.set(this.position.x + this.xOffset);
+        this.position.set(this.position.x + this.xOffset, this.position.y);
         this.positionIndex ++;
     }
 }
