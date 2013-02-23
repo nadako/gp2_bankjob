@@ -13,7 +13,7 @@ Sprite.prototype.initialize = function(config)
 {
     this.frames = [];
     this.valid  = false;
-    this.currentFrame = null;
+    this.currentFrame = {width: 0, height: 0};
     this.currentFrameIndex = 0;
     this.timer = 0;
     this.fps = config.fps;
