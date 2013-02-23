@@ -10,8 +10,9 @@ Game = function () {
 
 Game.prototype.resetLevel = function (levelId) {
 
-    this.currenLevel = new Level(levelDefs[levelId]);
-    this.player.reset(this.currenLevel.def.tilecoord.x, this.currenLevel.def.tilecoord.y,  this.currenLevel.numObstacles() + 1, Config.TILE_SIZE);
+    this.currentLevel = new Level(levelDefs[levelId]);
+    this.timeWidget = new TimeWidget(252, 50, this.currentLevel.def.duration);
+    this.player.reset(this.currentLevel.def.tilecoord.x, this.currentLevel.def.tilecoord.y,  this.currentLevel.numObstacles() + 1, Config.TILE_SIZE);
 }
 
 Game.prototype.Load = function () {
@@ -22,14 +23,15 @@ Game.prototype.Load = function () {
 Game.prototype.Calculate = function () {
 
     this.player.update(tickperframe);
-    this.currenLevel.update(tickperframe);
+    this.currentLevel.update(tickperframe);
+    this.timeWidget.update(tickperframe, this.currentLevel.time);
 
     var pos = this.player.positionIndex;
-    if (pos > 0 && pos <= this.currenLevel.numObstacles() && this.currenLevel.isDeadly(pos - 1))
+    if (pos > 0 && pos <= this.currentLevel.numObstacles() && this.currentLevel.isDeadly(pos - 1))
     {
         this.playerDeath();
     }
-    else if (this.currenLevel.isFinished())
+    else if (this.currentLevel.isFinished())
     {
         if (pos == 0)
         {
@@ -49,7 +51,7 @@ Game.prototype.playerDeath = function()
 
 Game.prototype.playerWin = function()
 {
-    console.log("WIN", this.currenLevel.houseCount);
+    console.log("WIN", this.currentLevel.houseCount);
 };
 
 Game.prototype.playerArrest = function()
@@ -65,7 +67,7 @@ Game.prototype.checkPlayerAtHome = function()
     if (this.player.positionIndex == 0)
     {
         this.player.setCurrentState(this.player.GOTO_DEAL_STATE);
-        this.currenLevel.houseCount++;
+        this.currentLevel.houseCount++;
     }
 }
 
@@ -74,7 +76,7 @@ Game.prototype.checkPlayerAtBank = function()
     if (this.player.getCurrentState() != this.player.GOTO_DEAL_STATE)
         return;
 
-    if (this.player.positionIndex == this.currenLevel.numObstacles() + 1)
+    if (this.player.positionIndex == this.currentLevel.numObstacles() + 1)
     {
         this.player.setCurrentState(this.player.GETTING_AWAY_STATE);
     }
@@ -82,10 +84,12 @@ Game.prototype.checkPlayerAtBank = function()
 
 Game.prototype.Render = function () {
 
-    this.currenLevel.draw();
+    this.currentLevel.draw();
     this.player.draw();
+    this.timeWidget.draw();
+
     ctx.fillStyle = "#FF00AA";
-    ctx.fillText("SCORE: " + this.currenLevel.houseCount, 200, 20);
+    ctx.fillText("SCORE: " + this.currentLevel.houseCount, 200, 20);
 }
 
 
@@ -110,11 +114,11 @@ Game.prototype.onRightPressed = function (e) {
 // mouse input
 
 
-Game.prototype.onmouseclick = function (e) {
+Game.prototype.onmouseup = function (e) {
 
-    if (e.screenX < canvas.width/2)
-        onLeftPressed();
-    else onRightPressed();
+    if (e.layerX < canvas.width/2)
+        this.onLeftPressed();
+    else this.onRightPressed();
 }
 
 //---------------------------------------------

@@ -65,7 +65,7 @@ window.onload = function () {
     //canvas.onmousedown = function (e) {      game.onmousedown(e);    };
     //canvas.onmousemove = function (e) {      game.onmousemove(e);    };
     //canvas.onmouseup = function (e) {      game.onmouseup(e);    };
-    canvas.click = function (e) {      game.onmouseclick(e);    };
+    canvas.onmouseup = function (e) { game.onmouseup(e); };
 
     //document.onkeydown = function (e) {      game.onkeydown(e);    };
     //document.onkeypress = function (e) {      game.onkeypress(e);    };
