@@ -82,10 +82,10 @@ Game.prototype.playerWin = function()
 
     var lastLevel = game.levelId >= levelDefs.length - 1;
     var nextState;
-    if (lastLevel)
+    if (game.currentLevel.houseCount && lastLevel)
         nextState = new WinState("win_final.png", null, 50);
     else
-        nextState = new WinState("win.png", new PlayState(game.levelId + 1));
+        nextState = new WinState("win.png", new PlayState(game.currentLevel.houseCount ? game.levelId + 1 : game.levelId));
 
     changeState(nextState);
 };
@@ -133,8 +133,17 @@ Game.prototype.Render = function () {
        this.bullet.draw();
 
     ctx.fillStyle = "#000000";
-    ctx.font = "25px MainFont";
+    ctx.font = "24px MainFont";
     ctx.fillText("SCORE: " + this.currentLevel.houseCount + " (total " + totalBagsOfGold + ")", 250, 20);
+    ctx.fillStyle = "#FFFFFF";
+    ctx.fillText("LEVEL: " + (this.levelId + 1), 50, 20);
+    ctx.fillText("TIME: " + formatTime(), 50, 40);
+}
+
+function formatTime()
+{
+    var msecs = game.currentLevel.def.duration - game.currentLevel.time;
+    return Math.ceil(msecs / 1000).toFixed(0);
 }
 
 

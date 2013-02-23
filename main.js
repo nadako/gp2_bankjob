@@ -73,10 +73,10 @@ window.onload = function () {
     //canvas.onmousedown = function (e) {      game.onmousedown(e);    };
     //canvas.onmousemove = function (e) {      game.onmousemove(e);    };
     //canvas.onmouseup = function (e) {      game.onmouseup(e);    };
-    canvas.onmouseup = function (e) { currentState.mouseUp(e); };
+    canvas.onmousedown = function (e) { currentState.mouseUp(e); };
 
     //document.onkeydown = function (e) {      game.onkeydown(e);    };
     //document.onkeypress = function (e) {      game.onkeypress(e);    };
-    document.onkeyup = function (e) {      currentState.keyPress(e);    };
+    document.onkeydown = function (e) {      currentState.keyPress(e);    };
 };
 

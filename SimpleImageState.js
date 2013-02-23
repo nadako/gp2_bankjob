@@ -12,10 +12,7 @@ var SimpleImageState = function(image, nextState)
         {
             this.keyPress = function(e)
             {
-                if (e.which == 13)
-                {
-                    changeState(this.nextState);
-                }
+                changeState(this.nextState);
             }
 
             this.mouseUp = function(e)
