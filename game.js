@@ -39,8 +39,8 @@ Game.prototype.Calculate = function () {
 
 Game.prototype.Render = function () {
 
-    this.player.draw();
     this.currenLevel.draw();
+    this.player.draw();
 }
 
 
