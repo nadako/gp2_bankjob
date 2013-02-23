@@ -11,7 +11,7 @@ Game = function () {
 Game.prototype.resetLevel = function (levelId) {
 
     this.currenLevel = new Level(levelDefs[levelId]);
-    this.player.reset(0, 0,  this.currenLevel.numObstacles()-1, 10);
+    this.player.reset(0, 0,  this.currenLevel.numObstacles()-1, Config.TILE_SIZE);
 }
 
 
