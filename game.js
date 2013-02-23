@@ -73,6 +73,7 @@ Game.prototype.playerDeath = function()
 {
     this.deathSound.play();
     totalBagsOfGold -= this.currentLevel.houseCount;
+    totalDeaths++;
     changeState(new SimpleImageState("dead.png", new PlayState(game.levelId)));
 };
 
@@ -133,11 +134,15 @@ Game.prototype.Render = function () {
        this.bullet.draw();
 
     ctx.fillStyle = "#000000";
+    ctx.fillStyle = "#000000";
     ctx.font = "24px MainFont";
-    ctx.fillText("SCORE: " + this.currentLevel.houseCount + " (total " + totalBagsOfGold + ")", 250, 20);
+    ctx.fillText("SCORE: " + this.currentLevel.houseCount + " (total " + totalBagsOfGold + ")", 225, 20);
     ctx.fillStyle = "#FFFFFF";
     ctx.fillText("LEVEL: " + (this.levelId + 1), 50, 20);
     ctx.fillText("TIME: " + formatTime(), 50, 40);
+
+    ctx.fillStyle = "#FF0000";
+    ctx.fillText("DEATHS: " + totalDeaths, 470, 20);
 }
 
 function formatTime()

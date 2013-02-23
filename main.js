@@ -16,6 +16,7 @@ var tickperframe = 0;
 var secperframe = 0;
 
 totalBagsOfGold = 0;
+totalDeaths = 0;
 
 
 var currentState = null;
