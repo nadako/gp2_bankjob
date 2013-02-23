@@ -6,10 +6,13 @@
 Game = function () {
 
     this.player = new Player();
+    this.bullet = null;
 }
 
 Game.prototype.resetLevel = function (levelId) {
 
+    this.lastBulletTime = 0;
+    this.bulletSpawnDuration = 1500;
     this.currentLevel = new Level(levelDefs[levelId]);
     this.timeWidget = new TimeWidget(252, 50, this.currentLevel.def.duration);
     this.player.reset(this.currentLevel.def.tilecoord.x, this.currentLevel.def.tilecoord.y,  this.currentLevel.numObstacles() + 1, Config.TILE_SIZE);
@@ -45,6 +48,20 @@ Game.prototype.Calculate = function () {
         {
             this.playerArrest();
         }
+    }
+
+    else if (this.bullet == null)
+    {
+        if (this.currentLevel.time - this.lastBulletTime > this.bulletSpawnDuration && pos < this.currentLevel.numObstacles() )
+        {
+            this.bullet = new Bullet(canvas.width, 300, -0.5);
+        }
+    }
+    else
+    {
+        this.bullet.update(tickperframe);
+        if (this.bullet.position.x <= Config.TILE_SIZE)
+            this.bullet = null;
     }
 }
 
@@ -94,6 +111,9 @@ Game.prototype.Render = function () {
     this.currentLevel.draw();
     this.player.draw();
     this.timeWidget.draw();
+
+    if (this.bullet != null)
+       this.bullet.draw();
 
     ctx.fillStyle = "#FF00AA";
     ctx.fillText("SCORE: " + this.currentLevel.houseCount, 200, 20);
