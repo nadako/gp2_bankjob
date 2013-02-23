@@ -11,13 +11,29 @@ var lazor = {
     ]
 };
 
+var grinder = {
+    animDuration: 2000,
+    frames: [
+        {image: "trap2_idle.png", deadly: false},
+        {image: "trap2_on.png", deadly: true}
+    ]
+};
+
+var empty = {
+    animDuration: 10000,
+    frames: [
+        {image: "tunnel_tile.png", deadly: false}
+    ]
+};
+
+
 var levelDefs = [
 
     {
          duration: 15000,
          bg: "bg.png",
          tilecoord: {x: 0, y: 258},
-         obstacles: [ lazor, lazor ]
+         obstacles: [ lazor, grinder, empty, grinder ]
     },
 
     {
