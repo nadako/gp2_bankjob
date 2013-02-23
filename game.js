@@ -11,9 +11,8 @@ Game = function () {
 Game.prototype.resetLevel = function (levelId) {
 
     this.currenLevel = new Level(levelDefs[levelId]);
-    this.player.reset(this.currenLevel.def.tilecoord.x, this.currenLevel.def.tilecoord.y,  this.currenLevel.numObstacles()-1, Config.TILE_SIZE);
+    this.player.reset(this.currenLevel.def.tilecoord.x, this.currenLevel.def.tilecoord.y,  this.currenLevel.numObstacles() + 1, Config.TILE_SIZE);
 }
-
 
 Game.prototype.Load = function () {
 
@@ -25,21 +24,68 @@ Game.prototype.Calculate = function () {
     this.player.update(tickperframe);
     this.currenLevel.update(tickperframe);
 
-    if (this.currenLevel.isDeadly(this.player.positionIndex))
+    var pos = this.player.positionIndex;
+    if (pos > 0 && pos <= this.currenLevel.numObstacles() && this.currenLevel.isDeadly(pos - 1))
     {
-
+        this.playerDeath();
     }
     else if (this.currenLevel.isFinished())
     {
-
+        if (pos == 0)
+        {
+            this.playerWin();
+        }
+        else
+        {
+            this.playerArrest();
+        }
     }
 }
 
+Game.prototype.playerDeath = function()
+{
+    console.log("DEATH");
+};
+
+Game.prototype.playerWin = function()
+{
+    console.log("WIN", this.currenLevel.houseCount);
+};
+
+Game.prototype.playerArrest = function()
+{
+    console.log("ARREEST!");
+};
+
+Game.prototype.checkPlayerAtHome = function()
+{
+    if (this.player.getCurrentState() != this.player.GETTING_AWAY_STATE)
+        return;
+
+    if (this.player.positionIndex == 0)
+    {
+        this.player.setCurrentState(this.player.GOTO_DEAL_STATE);
+        this.currenLevel.houseCount++;
+    }
+}
+
+Game.prototype.checkPlayerAtBank = function()
+{
+    if (this.player.getCurrentState() != this.player.GOTO_DEAL_STATE)
+        return;
+
+    if (this.player.positionIndex == this.currenLevel.numObstacles() + 1)
+    {
+        this.player.setCurrentState(this.player.GETTING_AWAY_STATE);
+    }
+}
 
 Game.prototype.Render = function () {
 
     this.currenLevel.draw();
     this.player.draw();
+    ctx.fillStyle = "#FF00AA";
+    ctx.fillText("SCORE: " + this.currenLevel.houseCount, 200, 20);
 }
 
 
@@ -49,11 +95,15 @@ Game.prototype.Render = function () {
 Game.prototype.onLeftPressed = function (e) {
 
     this.player.tryMoveLeft();
+    this.checkPlayerAtBank();
+    this.checkPlayerAtHome();
 }
 
 Game.prototype.onRightPressed = function (e) {
 
     this.player.tryMoveRight();
+    this.checkPlayerAtBank();
+    this.checkPlayerAtHome();
 }
 
 //---------------------------------------------

@@ -8,11 +8,6 @@
 
 Player = function()
 {
-    this.DEAD_STATE = "player_deadState";
-    this.WIN_STATE = "player_winState";
-    this.GOTO_DEAL_STATE = "player_gotoDealState";
-    this.GETING_AWAY_STATE = "playerGettingAwayState";
-
     this.position = new Vec2(0, 0);
     this.positionIndex = 0;
     this.currentState = this.GOTO_DEAL_STATE;
@@ -20,17 +15,22 @@ Player = function()
      this.prepareSprites();
 }
 
+Player.prototype.DEAD_STATE = "player_deadState";
+Player.prototype.WIN_STATE = "player_winState";
+Player.prototype.GOTO_DEAL_STATE = "player_gotoDealState";
+Player.prototype.GETTING_AWAY_STATE = "playerGettingAwayState";
+
 Player.prototype.prepareSprites = function()
 {
-    this.animations =[];
+    this.animations = {};
     this.animations[this.GOTO_DEAL_STATE] = new Sprite({
-        "baseUrl"  : "res/bankjob/"
+        "baseUrl"  : Config.BASE_URL
         , "fps"    : 30
         , "frames" : [ "player.png" ]
     });
 
     this.animations[this.GETTING_AWAY_STATE] = new Sprite({
-        "baseUrl"  : "res/girl/"
+        "baseUrl"  : Config.BASE_URL
         , "fps"    : 30
         , "frames" : [ "player_gold.png" ]
     });
@@ -82,12 +82,12 @@ Player.prototype.draw = function()
     this.animations[this.currentState].draw(this.position.x, this.position.y);
 }
 
-Player.prototype.seCurrentState = function(stateId)
+Player.prototype.setCurrentState = function(stateId)
 {
     this.currentState = stateId;
 }
 
-Player.prototype.geCurrentState = function()
+Player.prototype.getCurrentState = function()
 {
     return this.currentState;
 }

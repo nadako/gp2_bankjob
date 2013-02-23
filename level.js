@@ -74,11 +74,6 @@ Level.prototype.numObstacles = function()
     return this.obstacles.length;
 }
 
-Level.prototype.setHouseCount = function(count)
-{
-    this.houseCount = count;
-}
-
 var Obstacle = function(def)
 {
     var spriteFrames = [];

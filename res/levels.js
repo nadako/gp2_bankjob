@@ -40,7 +40,7 @@ var levelDefs = [
              "home_gold3.png"
          ],
          tilecoord: {x: 0, y: 258},
-         obstacles: [ lazor, grinder, empty, grinder ]
+         obstacles: [ empty, lazor, empty, grinder, empty, grinder ]
     },
 
     {
