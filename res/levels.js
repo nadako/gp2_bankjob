@@ -32,8 +32,15 @@ var levelDefs = [
     {
          duration: 15000,
          bg: "bg.png",
+         bankTile: "bank_cash_tile.png",
+         houseTiles: [
+             "tunnel_tile.png",
+             "home_gold1.png",
+             "home_gold2.png",
+             "home_gold3.png"
+         ],
          tilecoord: {x: 0, y: 258},
-         obstacles: [ lazor, grinder, empty, grinder ]
+         obstacles: [ empty, lazor, empty, grinder, empty, grinder ]
     },
 
     {
