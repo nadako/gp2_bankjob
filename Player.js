@@ -8,19 +8,35 @@
 
 Player = function()
 {
+    this.DEAD_STATE = "player_deadState";
+    this.WIN_STATE = "player_winState";
+    this.GOTO_DEAL_STATE = "player_gotoDealState";
+    this.GETING_AWAY_STATE = "playerGettingAwayState";
+
     this.position = new Vec2(0, 0);
     this.positionIndex = 0;
+    this.currentState = this.GOTO_DEAL_STATE;
 
-    this.sprite = new Sprite({
+     this.prepareSprites();
+}
+
+Player.prototype.prepareSprites = function()
+{
+    this.animations =[];
+    this.animations[this.GOTO_DEAL_STATE] = new Sprite({
         "baseUrl"  : "res/girl/"
         , "fps"    : 30
-        , "frames" : ["girl_01.png", "girl_02.png", "girl_03.png","girl_04.png"
-            , "girl_05.png", "girl_06.png", "girl_07.png", "girl_08.png"
-            , "girl_09.png", "girl_10.png", "girl_11.png", "girl_12.png"
-            , "girl_13.png", "girl_14.png", "girl_15.png", "girl_16.png" ]
+        , "frames" : [ "girl_16.png" ]
     });
 
+    this.animations[this.GETTING_AWAY_STATE] = new Sprite({
+        "baseUrl"  : "res/girl/"
+        , "fps"    : 30
+        , "frames" : [ "girl_16.png" ]
+    });
 }
+
+
 
 Player.prototype.reset = function(startX, startY, maxPosIndex, xOffset)
 {
@@ -32,28 +48,46 @@ Player.prototype.reset = function(startX, startY, maxPosIndex, xOffset)
 
 Player.prototype.tryMoveLeft = function()
 {
-    if (this.positionIndex > 0)
+    var result =
+        this.positionIndex > 0;
+
+    if (result)
     {
         this.position.set(this.position.x - this.xOffset, this.position.y);
         this.positionIndex --;
     }
+    return result;
 }
 
 Player.prototype.tryMoveRight = function()
 {
-    if (this.positionIndex < this.maxPositionIndex)
+    var result =
+        this.positionIndex < this.maxPositionIndex;
+
+    if (result)
     {
         this.position.set(this.position.x + this.xOffset, this.position.y);
         this.positionIndex ++;
     }
+    return result;
 }
 
 Player.prototype.update = function(tpf)
 {
-    this.sprite.update(tpf);
+    this.animations[this.currentState].update(tpf);
 }
 
 Player.prototype.draw = function()
 {
-    this.sprite.draw(this.position.x, this.position.y);
+    this.animations[this.currentState].draw(this.position.x, this.position.y);
+}
+
+Player.prototype.seCurrentState = function(stateId)
+{
+    this.currentState = stateId;
+}
+
+Player.prototype.geCurrentState = function()
+{
+    return this.currentState;
 }
