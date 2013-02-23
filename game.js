@@ -6,39 +6,41 @@
 Game = function () {
 
     this.player = new Player();
-    this.levelMap = new LevelMap();
 }
 
-Game.prototype.resetLevel = function () {
+Game.prototype.resetLevel = function (levelId) {
 
-    this.player.reset();
-    this.levelMap.reset();
+    this.currenLevel = new Level(levelDefs[levelId]);
+    this.player.reset(0, 0, 5, 100);
 }
 
 
 Game.prototype.Load = function () {
 
-    this.resetLevel();
+    this.resetLevel(0);
+
 }
 
 Game.prototype.Calculate = function () {
 
-    if (this.levelMap.update(this.playerPosIndex))
+    this.player.update(tickperframe);
+    this.currenLevel.update(tickperframe);
+
+    if (this.currenLevel.isDeadly(this.player.positionIndex))
     {
 
     }
-    else
+    else if (this.currenLevel.isFinished())
     {
 
     }
-    this.playerSpr.update(tickperframe);
 }
 
 
 Game.prototype.Render = function () {
 
-    this.playerSpr.draw(this.playerPos.x, this.playerPos.y);
-    this.levelMap.draw();
+    this.player.draw();
+    this.currenLevel.draw();
 }
 
 
@@ -47,8 +49,7 @@ Game.prototype.Render = function () {
 
 Game.prototype.onLeftPressed = function (e) {
 
-    if (this.playerPosIndex > 0)
-       this.playerPosIndex --;
+    this.player.tryMoveLeft();
 }
 
 Game.prototype.onRightPressed = function (e) {

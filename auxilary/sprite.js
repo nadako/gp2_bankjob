@@ -15,6 +15,7 @@ Sprite.prototype.initialize = function(config)
     this.frames = [];
     this.valid  = false;
     this.currentFrame = 0;
+    this.currentFrameIndex = 0;
     this.timer = 0;
     this.fps = config.fps;
 
@@ -46,8 +47,8 @@ Sprite.prototype.update = function(dt)
 
     this.timer += dt;
 
-    var frame = Math.floor( this.timer / (1000/this.fps) ) % this.frames.length;
-    this.currentFrame=this.frames[frame];
+    this.currentFrameIndex = Math.floor( this.timer / (1000/this.fps) ) % this.frames.length;
+    this.currentFrame=this.frames[this.currentFrameIndex];
 }
 
 Sprite.prototype.draw = function (x, y, w, h) {
