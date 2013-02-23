@@ -54,10 +54,12 @@ Game.prototype.Calculate = function () {
 
     else if (this.bullet == null)
     {
+        /*
         if (this.currentLevel.time - this.lastBulletTime > this.bulletSpawnDuration && pos < this.currentLevel.numObstacles()-1 )
         {
             this.bullet = null;//new Bullet(canvas.width, 300, -0.5);
         }
+*/
     }
     else
     {

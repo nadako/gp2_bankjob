@@ -11,6 +11,18 @@ var lazor = {
     ]
 };
 
+var flame = {
+    fps: 2,
+    frames: [
+        {image: "trap3_idle1.png", deadly: false},
+        {image: "trap3_idle2.png", deadly: false},
+        {image: "trap3_idle1.png", deadly: false},
+        {image: "trap3_idle2.png", deadly: false},
+        {image: "trap3_on1.png", deadly: true},
+        {image: "trap3_on2.png", deadly: true}
+    ]
+};
+
 var grinder = {
     fps: 1,
     frames: [
@@ -39,7 +51,7 @@ var levelDefs = [
              "home_gold3.png"
          ],
          tilecoord: {x: 0, y: 258},
-         obstacles: [ empty, lazor, empty, grinder, empty, grinder ]
+         obstacles: [ empty, lazor, flame, grinder, empty, grinder ]
     },
 
     {

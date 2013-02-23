@@ -1,5 +1,11 @@
 var MainMenuState = function()
 {
+    this.enter = function()
+    {
+        this.bg = new Image();
+        this.bg.src = Config.BASE_URL + "game_start.png";
+    }
+
     this.keyPress = function(e)
     {
         if (e.which == 13)
@@ -15,14 +21,7 @@ var MainMenuState = function()
 
     this.draw = function()
     {
-        // Clear the screen
-        ctx.fillStyle = "cyan";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-
-        ctx.fillStyle = "#FF00AA";
-        ctx.font = "15px Arial Black";
-        ctx.fillText("PLAY THE GAME", 100, 20);
+        ctx.drawImage(this.bg, 0, 0);
     }
 };
 
