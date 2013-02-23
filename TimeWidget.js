@@ -30,7 +30,7 @@ TimeWidget.prototype.prepareView = function()
 
     this.animations["car"][this.NORMAL_STATE] = new Sprite({
         "baseUrl"  : "res/bankjob/"
-        , "fps"    : 30
+        , "fps"    : 3
         , "frames" : [ "car_blue.png", "car_red.png" ]
     });
 }
@@ -47,7 +47,7 @@ TimeWidget.prototype.draw = function()
     var carAnim = this.animations["car"][this.currentState];
     var barAnim = this.animations["bar"][this.currentState];
     var progressX = this.position.x + this.currentTime/this.maxTime * (barAnim.currentFrame.width - carAnim.currentFrame.width);
-    var barY = this.position.y + 30;///(carAnim.currentFrame.height - barAnim.currentFrame.height)/2;
+    var barY = this.position.y + 35;///(carAnim.currentFrame.height - barAnim.currentFrame.height)/2;
 
     this.animations["bar"][this.currentState].draw(this.position.x, barY);
     this.animations["car"][this.currentState].draw(progressX, this.position.y);
