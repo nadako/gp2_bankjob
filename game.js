@@ -125,9 +125,10 @@ Game.prototype.onRightPressed = function (e) {
 
 Game.prototype.onmouseup = function (e) {
 
-    if (e.layerX < canvas.width/2)
+    if (e.layerX < this.player.position.x)
         this.onLeftPressed();
-    else this.onRightPressed();
+    else if (e.layerX > this.player.position.x + this.player.getCurrentSprite().currentFrame.width)
+        this.onRightPressed();
 }
 
 //---------------------------------------------
@@ -137,7 +138,7 @@ Game.prototype.onkeyup = function (e) {
     // left
     if (e.which == 37) this.onLeftPressed();
     // right
-    if (e.which == 39) this.onRightPressed();;
+    if (e.which == 39) this.onRightPressed();
 }
 
 

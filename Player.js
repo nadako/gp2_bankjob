@@ -36,6 +36,10 @@ Player.prototype.prepareSprites = function()
     });
 }
 
+Player.prototype.getCurrentSprite = function()
+{
+    return this.animations[this.currentState];
+}
 
 
 Player.prototype.reset = function(startX, startY, maxPosIndex, xOffset)
