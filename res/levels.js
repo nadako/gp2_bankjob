@@ -1,5 +1,5 @@
 var lazor = {
-    animDuration: 2000,
+    fps: 2,
     frames: [
         {image: "trap1_idle.png", deadly: false},
         {image: "trap1_idle.png", deadly: false},
@@ -12,7 +12,7 @@ var lazor = {
 };
 
 var grinder = {
-    animDuration: 2000,
+    fps: 1,
     frames: [
         {image: "trap2_idle.png", deadly: false},
         {image: "trap2_on.png", deadly: true}
@@ -20,7 +20,7 @@ var grinder = {
 };
 
 var empty = {
-    animDuration: 10000,
+    fps: 1,
     frames: [
         {image: "tunnel_tile.png", deadly: false}
     ]

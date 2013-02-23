@@ -50,7 +50,7 @@ var Obstacle = function(def)
 {
     var spriteFrames = [];
     var config = {
-        fps: (def.frames.length / (def.animDuration / 1000)),
+        fps: def.fps,
         baseUrl: Config.BASE_URL,
         frames: spriteFrames
     };
