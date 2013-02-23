@@ -4,7 +4,7 @@ var Level = function(def)
     this.obstacles = [];
     this.time = 0;
     this.bg = new Image();
-    this.bg.src = Config.BASE_URL + def.bg;
+    this.bg.src = Config.BASE_URL + def.bg + "?" + (new Date()).getTime();
 
     this.houseTiles = [];
     for (var i = 0; i < def.houseTiles.length; i++)

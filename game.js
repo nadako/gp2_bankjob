@@ -16,6 +16,10 @@ Game.prototype.resetLevel = function (levelId) {
 
 Game.prototype.Load = function () {
 
+    this.pickupSound = new buzz.sound(Config.BASE_URL + "pickup.wav");
+    this.putdownSound = new buzz.sound(Config.BASE_URL + "putdown.wav");
+    this.stepSound = new buzz.sound(Config.BASE_URL + "step.wav");
+    this.deathSound = new buzz.sound(Config.BASE_URL + "death.wav");
     this.resetLevel(0);
 }
 
@@ -45,6 +49,7 @@ Game.prototype.Calculate = function () {
 Game.prototype.playerDeath = function()
 {
     console.log("DEATH");
+    this.deathSound.play();
 };
 
 Game.prototype.playerWin = function()
@@ -66,6 +71,7 @@ Game.prototype.checkPlayerAtHome = function()
     {
         this.player.setCurrentState(this.player.GOTO_DEAL_STATE);
         this.currenLevel.houseCount++;
+        this.putdownSound.play();
     }
 }
 
@@ -77,6 +83,7 @@ Game.prototype.checkPlayerAtBank = function()
     if (this.player.positionIndex == this.currenLevel.numObstacles() + 1)
     {
         this.player.setCurrentState(this.player.GETTING_AWAY_STATE);
+        this.pickupSound.play();
     }
 }
 
@@ -94,14 +101,16 @@ Game.prototype.Render = function () {
 
 Game.prototype.onLeftPressed = function (e) {
 
-    this.player.tryMoveLeft();
+    if (this.player.tryMoveLeft())
+        this.stepSound.play();
     this.checkPlayerAtBank();
     this.checkPlayerAtHome();
 }
 
 Game.prototype.onRightPressed = function (e) {
 
-    this.player.tryMoveRight();
+    if (this.player.tryMoveRight())
+        this.stepSound.play();
     this.checkPlayerAtBank();
     this.checkPlayerAtHome();
 }
