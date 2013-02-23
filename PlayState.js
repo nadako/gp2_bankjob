@@ -3,7 +3,16 @@ var PlayState = function(level)
     this.enter = function()
     {
         game.startLevel(level);
+        music.setVolume(10)
+        music.loop();
+        music.play();
     };
+
+    this.exit = function()
+    {
+        music.stop();
+        console.log("EXIT PLAY STATE");
+    }
 
     this.update = function(dt)
     {

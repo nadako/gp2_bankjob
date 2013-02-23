@@ -65,6 +65,9 @@ window.onload = function () {
     ctx = canvas.getContext("2d");
     fps = new FPSMeter("fpsmeter", document.getElementById("fpscontainer"));
 
+    music = new buzz.sound(Config.BASE_URL + "gamemusic.mp3");
+    music.load();
+
     game = new Game();
     game.Load();
 
