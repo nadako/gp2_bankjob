@@ -48,6 +48,7 @@ Player.prototype.reset = function(startX, startY, maxPosIndex, xOffset)
     this.positionIndex = 0;
     this.maxPositionIndex = maxPosIndex;
     this.xOffset = xOffset;
+    this.currentState = this.GOTO_DEAL_STATE;
 }
 
 Player.prototype.tryMoveLeft = function()
