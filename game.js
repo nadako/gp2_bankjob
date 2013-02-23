@@ -33,12 +33,19 @@ Game.prototype.Load = function () {
         , "girl_13.png", "girl_14.png", "girl_15.png", "girl_16.png" ]
     });
     this.girlPos = new Vec2(0, canvas.height / 2);
+
+    this.currenLevel = new Level(levelDefs[0]);
 }
 
 Game.prototype.Calculate = function () {
     this.girlPos.x += tickperframe / 5;
     if (this.girlPos.x > canvas.width) this.girlPos.x = -100;
     this.girlSpr.update(tickperframe);
+
+    this.currenLevel.update(tickperframe);
+
+
+
 }
 
 
@@ -47,6 +54,8 @@ Game.prototype.Render = function () {
     ctx.drawImage(this.creatureImg, 0, 0, 128, 128, this.creaturePos.x, this.creaturePos.y, 128, 128);
 
     this.girlSpr.draw(this.girlPos.x, this.girlPos.y);
+
+    this.currenLevel.draw();
 }
 
 //---------------------------------------------
