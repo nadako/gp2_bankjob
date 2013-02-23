@@ -28,9 +28,8 @@ var empty = {
 
 
 var levelDefs = [
-
     {
-         duration: 15000,
+         duration: 3000,
          bg: "bg.png",
          bankTile: "bank_cash_tile.png",
          houseTiles: [
@@ -44,17 +43,16 @@ var levelDefs = [
     },
 
     {
-        duration: 15000,
-        obstacles: [
-            {
-                animDuration: 1000,
-                frames: [
-                    {image: "test1.png", deadly: false},
-                    {image: "test2.png", deadly: false},
-                    {image: "test3.png", deadly: true}
-                ]
-            }
-        ]
+        duration: 3000,
+        bg: "bg.png",
+        bankTile: "bank_cash_tile.png",
+        houseTiles: [
+            "tunnel_tile.png",
+            "home_gold1.png",
+            "home_gold2.png",
+            "home_gold3.png"
+        ],
+        tilecoord: {x: 0, y: 258},
+        obstacles: [ empty, lazor, empty, grinder, empty, grinder ]
     }
-
 ]

@@ -7,12 +7,14 @@ Game = function () {
 
     this.player = new Player();
     this.bullet = null;
+    this.levelId = 0;
 }
 
-Game.prototype.resetLevel = function (levelId) {
+Game.prototype.startLevel = function (levelId) {
 
     this.lastBulletTime = 0;
     this.bulletSpawnDuration = 1500;
+    this.levelId = levelId;
     this.currentLevel = new Level(levelDefs[levelId]);
     this.timeWidget = new TimeWidget(252, 50, this.currentLevel.def.duration);
     this.player.reset(this.currentLevel.def.tilecoord.x, this.currentLevel.def.tilecoord.y,  this.currentLevel.numObstacles() + 1, Config.TILE_SIZE);
@@ -24,7 +26,7 @@ Game.prototype.Load = function () {
     this.putdownSound = new buzz.sound(Config.BASE_URL + "putdown.wav");
     this.stepSound = new buzz.sound(Config.BASE_URL + "step.wav");
     this.deathSound = new buzz.sound(Config.BASE_URL + "death.wav");
-    this.resetLevel(0);
+    this.winSound = new buzz.sound(Config.BASE_URL + "win.wav");
 }
 
 Game.prototype.Calculate = function () {
@@ -67,18 +69,20 @@ Game.prototype.Calculate = function () {
 
 Game.prototype.playerDeath = function()
 {
-    console.log("DEATH");
     this.deathSound.play();
+    changeState(new LoseState("killed in a trap"));
 };
 
 Game.prototype.playerWin = function()
 {
-    console.log("WIN", this.currentLevel.houseCount);
+    this.winSound.play();
+    changeState(new WinState(this.currentLevel.houseCount));
 };
 
 Game.prototype.playerArrest = function()
 {
-    console.log("ARREEST!");
+    this.deathSound.play();
+    changeState(new LoseState("fuckers got you"));
 };
 
 Game.prototype.checkPlayerAtHome = function()

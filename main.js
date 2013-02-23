@@ -16,6 +16,16 @@ var tickperframe = 0;
 var secperframe = 0;
 
 
+var currentState = null;
+
+function changeState(newState)
+{
+    if (currentState != null)
+        currentState.exit();
+    currentState = newState;
+    currentState.enter();
+}
+
 // ----------------------------------------
 
 
@@ -27,18 +37,14 @@ function GameTick(elapsed)
 
     fps.update(secperframe);
 
-    // all game calculations here
-    game.Calculate();
+    if (currentState != null)
+    {
+        currentState.update(tickperframe);
+        // reset transformation matrix to indentity
+        ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    // reset transformation matrix to indentity
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-   	// Clear the screen
-	ctx.fillStyle = "cyan";
-	ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    // game render
-    game.Render();
+        currentState.draw();
+    }
 
     // Draw FPS
 	ctx.fillStyle = "#FF00AA";    
@@ -54,18 +60,19 @@ window.onload = function () {
     ctx = canvas.getContext("2d");
     fps = new FPSMeter("fpsmeter", document.getElementById("fpscontainer"));
 
-    game = new Game;
+    game = new Game();
     game.Load();
 
+    changeState(new MainMenuState());
     GameLoopManager.run(GameTick);
 
     //canvas.onmousedown = function (e) {      game.onmousedown(e);    };
     //canvas.onmousemove = function (e) {      game.onmousemove(e);    };
     //canvas.onmouseup = function (e) {      game.onmouseup(e);    };
-    canvas.onmouseup = function (e) { game.onmouseup(e); };
+    canvas.onmouseup = function (e) { currentState.mouseUp(e); };
 
     //document.onkeydown = function (e) {      game.onkeydown(e);    };
     //document.onkeypress = function (e) {      game.onkeypress(e);    };
-    document.onkeyup = function (e) {      game.onkeyup(e);    };
+    document.onkeyup = function (e) {      currentState.keyPress(e);    };
 };
 
